@@ -1,0 +1,26 @@
+{
+  "name": "bentonet",
+  "version": "1.0.0",
+  "description": "Library for connecting an application and communicating with the BentoNet WebShell.",
+  "source": "src/index.js",
+  "main": "dist/bentonet.js",
+  "umd:main": "dist/bentonet.umd.js",
+  "module": "dist/bentonet.m.js",
+  "exports": {
+    "require": "./dist/bentonet.js",
+    "default": "./dist/bentonet.modern.js"
+  },
+  "types": "dist/bentonet.d.ts",
+  "scripts": {
+    "build": "microbundle"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org"
+  },
+  "author": "Stefan Mutschler",
+  "license": "ISC",
+  "devDependencies": {
+    "microbundle": "^0.13.0"
+  }
+}
