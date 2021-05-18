@@ -2,7 +2,7 @@
   "name": "bentonet",
   "version": "1.0.0",
   "description": "Library for connecting an application and communicating with the BentoNet WebShell.",
-  "source": "src/index.js",
+  "source": "src/bentonet.js",
   "main": "dist/bentonet.js",
   "umd:main": "dist/bentonet.umd.js",
   "module": "dist/bentonet.m.js",
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://bitbucket.org"
+    "url": "https://github.com/BentoNet-GmbH/shellcom"
   },
   "author": "Stefan Mutschler",
   "license": "ISC",
