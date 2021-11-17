@@ -23,6 +23,7 @@ class BentoNet {
 
         window.addEventListener("message", function(event) {
             if (!window.bentonet.allowedOrigins.includes(event.origin)) {
+                console.log("BentoNet: " + event.origin + " is not an allowed domain for messaging.");
                 return;
             }
             switch (event.data.message) {
@@ -74,7 +75,6 @@ class BentoNet {
             if(h === handler) {
                 window.bentonet.searchHandlers.splice(i, 1);
                 window.bentonet.autoEnableSearchField();
-                return
             }
         })
     }
