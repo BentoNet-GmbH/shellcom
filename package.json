@@ -1,6 +1,6 @@
 {
   "name": "bentonet",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Library for connecting an application and communicating with the BentoNet WebShell.",
   "source": "src/bentonet.js",
   "main": "dist/bentonet.js",
@@ -21,6 +21,6 @@
   "author": "Stefan Mutschler",
   "license": "ISC",
   "devDependencies": {
-    "microbundle": "^0.13.0"
+    "microbundle": "^0.14.2"
   }
 }

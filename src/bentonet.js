@@ -1,12 +1,19 @@
 
 class BentoNet {
 
-    allowedOrigins = [];
+    allowedOrigins = ["bentonet.de"];
     searchHandlers = [];
+    startupObservers = [];
+    observers = [];
 
-    constructor(allowedOrigins) {
+    constructor(startupObserver, allowedOrigins) {
         window.bentonet = this;
-        window.bentonet.allowedOrigins = allowedOrigins;
+        if (startupObserver instanceof Function) {
+            window.bentonet.startupObservers.push(startupObserver);
+        }
+        if(allowedOrigins !== null) {
+            window.bentonet.allowedOrigins = allowedOrigins;
+        }
         window.bentonet.init();
     }
 
@@ -22,13 +29,22 @@ class BentoNet {
         });
 
         window.addEventListener("message", function(event) {
-            if (!window.bentonet.allowedOrigins.includes(event.origin)) {
+            if(!window.bentonet.checkAllowedOrigins(event.origin)) {
                 console.log("BentoNet: " + event.origin + " is not an allowed domain for messaging.");
                 return;
             }
             switch (event.data.message) {
+                case 'BENTONET.STARTUP':
+                    window.sessionStorage.setItem(event.data.key, event.data.value);
+                    window.bentonet.startupObservers.forEach( handler => {
+                        handler(event.data.key, event.data.value);
+                    })
+                    break;
                 case 'BENTONET.SET':
                     window.sessionStorage.setItem(event.data.key, event.data.value);
+                    window.bentonet.observers.forEach( handler => {
+                        handler(event.data.key, event.data.value);
+                    })
                     break;
                 case 'BENTONET.GET':
                     let parent = window.parent;
@@ -51,6 +67,16 @@ class BentoNet {
         });
     }
 
+    checkAllowedOrigins(origin) {
+        let allowed = false;
+        window.bentonet.allowedOrigins.forEach( allowedOrigin => {
+            if (origin.toLowerCase().endsWith(allowedOrigin.toLowerCase())) {
+                allowed = true;
+            }
+        })
+        return allowed;
+    }
+
     showSearchField(show) {
         let parent = window.parent;
         let message = show === true ? "SEARCH.ENABLE" : "SEARCH.DISABLE";
@@ -66,7 +92,9 @@ class BentoNet {
     }
 
     addSearchHandler(handler) {
-        window.bentonet.searchHandlers.push(handler);
+        if (handler instanceof Function) {
+            window.bentonet.searchHandlers.push(handler);
+        }
         window.bentonet.autoEnableSearchField();
     }
 
@@ -75,6 +103,20 @@ class BentoNet {
             if(h === handler) {
                 window.bentonet.searchHandlers.splice(i, 1);
                 window.bentonet.autoEnableSearchField();
+            }
+        })
+    }
+
+    addObserver(handler) {
+        if (handler instanceof Function) {
+            window.bentonet.observers.push(handler);
+        }
+    }
+
+    removeObserver(handler) {
+        window.bentonet.observers.forEach( (h, i) => {
+            if(h === handler) {
+                window.bentonet.observers.splice(i, 1);
             }
         })
     }
