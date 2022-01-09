@@ -1,6 +1,6 @@
 export class BentoNet {
-    constructor(startupObserver: any, allowedOrigins: any);
-    allowedOrigins: string[];
+    constructor(startupObserver: any, allowedOrigins?: string[]);
+    allowedOrigins: any[];
     searchHandlers: any[];
     startupObservers: any[];
     observers: any[];

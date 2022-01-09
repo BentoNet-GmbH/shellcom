@@ -1,17 +1,17 @@
 
 class BentoNet {
 
-    allowedOrigins = ["bentonet.de"];
+    allowedOrigins = [];
     searchHandlers = [];
     startupObservers = [];
     observers = [];
 
-    constructor(startupObserver, allowedOrigins) {
+    constructor(startupObserver, allowedOrigins = ["bentonet.de"]) {
         window.bentonet = this;
-        if (startupObserver instanceof Function) {
+        if (startupObserver) {
             window.bentonet.startupObservers.push(startupObserver);
         }
-        if(allowedOrigins !== null) {
+        if(allowedOrigins) {
             window.bentonet.allowedOrigins = allowedOrigins;
         }
         window.bentonet.init();
@@ -92,7 +92,7 @@ class BentoNet {
     }
 
     addSearchHandler(handler) {
-        if (handler instanceof Function) {
+        if (handler) {
             window.bentonet.searchHandlers.push(handler);
         }
         window.bentonet.autoEnableSearchField();
@@ -108,7 +108,7 @@ class BentoNet {
     }
 
     addObserver(handler) {
-        if (handler instanceof Function) {
+        if (handler) {
             window.bentonet.observers.push(handler);
         }
     }
