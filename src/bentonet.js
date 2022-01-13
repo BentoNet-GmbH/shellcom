@@ -6,7 +6,7 @@ class BentoNet {
     startupObservers = [];
     observers = [];
 
-    constructor(startupObserver, allowedOrigins = ["bentonet.de"]) {
+    constructor(startupObserver, allowedOrigins = ["bentonet.de", location.host]) {
         window.bentonet = this;
         if (startupObserver) {
             window.bentonet.startupObservers.push(startupObserver);
@@ -70,6 +70,7 @@ class BentoNet {
     checkAllowedOrigins(origin) {
         let allowed = false;
         window.bentonet.allowedOrigins.forEach( allowedOrigin => {
+            console.log(origin + " ==> " + allowedOrigin);
             if (origin.toLowerCase().endsWith(allowedOrigin.toLowerCase())) {
                 allowed = true;
             }
