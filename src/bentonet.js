@@ -35,6 +35,7 @@ class BentoNet {
             }
             switch (event.data.message) {
                 case 'BENTONET.STARTUP':
+                    console.log("BentoNet: Connection successful...");
                     window.sessionStorage.setItem(event.data.key, event.data.value);
                     window.bentonet.startupObservers.forEach( handler => {
                         handler(event.data.key, event.data.value);
