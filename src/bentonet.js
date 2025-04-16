@@ -6,7 +6,7 @@ class BentoNet {
     startupObservers = [];
     observers = [];
 
-    constructor(startupObserver, allowedOrigins = ["bentonet.de", location.host]) {
+    constructor(startupObserver, allowedOrigins = ["bentonet.de", "bentonet.eu", location.host]) {
         window.bentonet = this;
         if (startupObserver) {
             window.bentonet.startupObservers.push(startupObserver);
